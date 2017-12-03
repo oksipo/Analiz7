@@ -1,26 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace _7analiz
 {
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        public ObservableCollection<Row> FirstTableRows { get; set; }
+
         Random rand = new Random();
+        public ObservableCollection<Row> FirstTableRows { get; set; }
+        public ObservableCollection<RowWithExpertMarks> ExpertCoefs { get; set; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,6 +21,7 @@ namespace _7analiz
         {
             InitializeComponent();
             InitializeFirstTable();
+            InitializeExpertCoefsTable();
             this.DataContext = this;
         }
 
@@ -65,6 +59,48 @@ namespace _7analiz
             RecalculateFirstTableRows();
         }
 
+        //TODO IMPORTANT!!! FIX VALUE AFTER CREATING SECOND TAB!!!!
+        void InitializeExpertCoefsTable()
+        {
+            ExpertCoefs = new ObservableCollection<RowWithExpertMarks>
+            {
+                new RowWithExpertMarks
+                {
+                    Name = "Множина настання технічних ризикових подій",
+                    IsHeader = true,
+                    Value = FirstTableRows.Count(x=>x.GroupName == "Множина джерел появи технічних ризиків"),
+                    Number = 1,
+                    ExpertCoefficients = new ObservableCollection<double>(Enumerable.Repeat(0d,10)),
+                },
+                new RowWithExpertMarks
+                {
+                    Name = "Множина настання вартісних ризикових подій",
+                    IsHeader = true,
+                    Value = FirstTableRows.Count(x=>x.GroupName == "Множина джерел появи вартісних ризиків"),
+                    Number = 2,
+                    ExpertCoefficients = new ObservableCollection<double>(Enumerable.Repeat(0d,10)),
+                },
+                new RowWithExpertMarks
+                {
+                    Name = "Множина настання планових ризикових подій",
+                    IsHeader = true,
+                    Value = FirstTableRows.Count(x=>x.GroupName == "Множина джерел появи планових ризиків"),
+                    Number = 3,
+                    ExpertCoefficients = new ObservableCollection<double>(Enumerable.Repeat(0d,10)),
+                },
+                new RowWithExpertMarks
+                {
+                    Name = "Множина настання ризикових подій реалізації процесу управління програмним проектом",
+                    IsHeader = true,
+                    Value = FirstTableRows.Count(x=>x.GroupName == "Множина джерел появи ризиків реалізації процесу управління програмним проектом"),
+                    Number = 4,
+                    ExpertCoefficients = new ObservableCollection<double>(Enumerable.Repeat(0d,10)),
+                }
+            };
+
+            this.RandomizeExpertCoefs();
+        }
+
         void RecalculateFirstTableRows()
         {
             foreach (var item in FirstTableRows.Where(x => x is RowWithPercent))
@@ -91,6 +127,17 @@ namespace _7analiz
             RecalculateFirstTableRows();
         }
 
+        void RandomizeExpertCoefs()
+        {
+            foreach (var row in ExpertCoefs)
+            {
+                for (var i = 0; i < row.ExpertCoefficients.Count; i++)
+                {
+                    row.ExpertCoefficients[i] = rand.Next(0, 11);
+                }
+            }
+        }
+
         double Randomize()
         {
             return rand.NextDouble();
@@ -105,7 +152,9 @@ namespace _7analiz
         private void button_Click(object sender, RoutedEventArgs e)
         {
             GenerateFirstTableRows();
+            RandomizeExpertCoefs();
             OnPropertyChanged("FirstTableRows");
+            OnPropertyChanged(nameof(ExpertCoefs));
         }
         private void FirstTable_OnSourceUpdated(object sender, DataTransferEventArgs e)
         {

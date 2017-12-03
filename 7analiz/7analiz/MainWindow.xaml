@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_7analiz"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1500" Width="1500">
+        Title="MainWindow" WindowState="Maximized">
 
     <StackPanel Background="Beige">
 
@@ -54,6 +54,35 @@
                 </TabItem>
                 <TabItem Header="TabItem" Margin="-1.6,-10,-1.8,0">
                     <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+                
+                <TabItem Header="Аналіз ризиків розроблення ПЗ" Margin="-1.6,-10,-1.8,0">
+                    <Grid VerticalAlignment="Stretch">
+                        <Grid.Background>
+                            <ImageBrush ImageSource="twilie.png"/>
+                        </Grid.Background>
+                        <Label  Content="Коефіцієнти вагомості кожного з експертів  для ймовірності настання ризикових подій" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="31"/>
+                        
+                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ExpertCoefs}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn   Header="#"                 Binding= "{Binding Number,                  Mode=TwoWay}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Header="Множина ризиків"   Binding= "{Binding Name,                    Mode=TwoWay}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Header="Кількість ризиків" Binding= "{Binding Value,                   Mode=TwoWay}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Header="1"                 Binding= "{Binding ExpertCoefficients[0],   Mode=TwoWay}" />
+                                <DataGridTextColumn   Header="2"                 Binding= "{Binding ExpertCoefficients[1],   Mode=TwoWay}" />
+                                <DataGridTextColumn   Header="3"                 Binding= "{Binding ExpertCoefficients[2],   Mode=TwoWay}" />
+                                <DataGridTextColumn   Header="4"                 Binding= "{Binding ExpertCoefficients[3],   Mode=TwoWay}" />
+                                <DataGridTextColumn   Header="5"                 Binding= "{Binding ExpertCoefficients[4],   Mode=TwoWay}" />
+                                <DataGridTextColumn   Header="6"                 Binding= "{Binding ExpertCoefficients[5],   Mode=TwoWay}" />
+                                <DataGridTextColumn   Header="7"                 Binding= "{Binding ExpertCoefficients[6],   Mode=TwoWay}" />
+                                <DataGridTextColumn   Header="8"                 Binding= "{Binding ExpertCoefficients[7],   Mode=TwoWay}" />
+                                <DataGridTextColumn   Header="9"                 Binding= "{Binding ExpertCoefficients[8],   Mode=TwoWay}" />
+                                <DataGridTextColumn   Header="10"                Binding= "{Binding ExpertCoefficients[9],   Mode=TwoWay}" />
+
+                            </DataGrid.Columns>
+                            </DataGrid>
+
+                    </Grid>
                 </TabItem>
             </TabControl>
 
