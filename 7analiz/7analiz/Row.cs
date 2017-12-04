@@ -10,7 +10,7 @@ namespace _7analiz
     public class Row : INotifyPropertyChanged
     {
         private double value;
-        public double Number { get; set; }
+        public string Number { get; set; }
 
         public string Name { get; set; }
         public double Value

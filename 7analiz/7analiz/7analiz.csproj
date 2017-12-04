@@ -55,6 +55,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="RowWithExpertMarks.cs" />
+    <Compile Include="RowWithTotal.cs" />
     <Compile Include="RowWithPercent.cs" />
     <Compile Include="Row.cs" />
     <Page Include="MainWindow.xaml">
