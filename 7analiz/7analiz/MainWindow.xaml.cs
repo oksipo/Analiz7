@@ -14,6 +14,7 @@ namespace _7analiz
         public ObservableCollection<Row> FirstTableRows { get; set; }
         public ObservableCollection<Row> SecondTableRows { get; set; }
         public ObservableCollection<RowWithExpertMarks> ExpertCoefs { get; set; }
+        public ObservableCollection<RowWithExpertMarks> ExpertMarks { get; set; }
         public ObservableCollection<SolutionRow> SolutionsTableRows { get; set; }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -29,6 +30,7 @@ namespace _7analiz
             InitializeSecondTable();
             InitializeSolutionTableRows();
             InitializeExpertCoefsTable();
+            InitializeExpertMarksTable();
             this.DataContext = this;
         }
 
@@ -38,7 +40,7 @@ namespace _7analiz
         {
             FirstTableRows = new ObservableCollection<Row>
             {
-                new RowWithPercent() { Name = "Множина джерел появи технічних ризиків", Value = 0, IsHeader=true, Number = "1"},
+                new RowWithPercent() { Name = "Множина джерел появи технічних ризиків", min =0, max=100, Value = 0, IsHeader=true, Number = "1"},
                 new Row() { Name = "Функціональні характеристики ПЗ", Value = Randomize(), GroupName="Множина джерел появи технічних ризиків", Number = "1.1"},
                 new Row() { Name = "Характеристики якості ПЗ", Value = Randomize(), GroupName="Множина джерел появи технічних ризиків", Number = "1.2"},
                 new Row() { Name = "Характеристики надійності ПЗ", Value = Randomize(), GroupName="Множина джерел появи технічних ризиків", Number = "1.3"},
@@ -47,24 +49,24 @@ namespace _7analiz
                 new Row() { Name = "Супроводжуваність ПЗ", Value = Randomize(), GroupName="Множина джерел появи технічних ризиків", Number = "1.6"},
                 new Row() { Name = "Повторне використання компонент ПЗ", Value = Randomize(), GroupName="Множина джерел появи технічних ризиків", Number = "1.7"},
 
-                new RowWithPercent() { Name = "Множина джерел появи вартісних ризиків", Value = Randomize(), IsHeader=true, Number = "2"},
+                new RowWithPercent() { Name = "Множина джерел появи вартісних ризиків", min =0, max=100, Value = Randomize(), IsHeader=true, Number = "2"},
                 new Row() { Name = "Обмеження сумарного бюджету на програмний проект,", Value = Randomize(), GroupName="Множина джерел появи вартісних ризиків", Number = "2.1"},
                 new Row() { Name = "Недоступна вартість реалізації програмного проекту,", Value = Randomize(), GroupName="Множина джерел появи вартісних ризиків", Number = "2.2"},
                 new Row() { Name = "Низька ступінь реалізму при оцінюванні витрат на програмний проект", Value = Randomize(), GroupName="Множина джерел появи вартісних ризиків", Number = "2.3"},
 
-                new RowWithPercent() { Name = "Множина джерел появи планових ризиків", Value = Randomize(), IsHeader=true, Number = "3"},
+                new RowWithPercent() { Name = "Множина джерел появи планових ризиків", min =0, max=100, Value = Randomize(), IsHeader=true, Number = "3"},
                 new Row() { Name = "Властивості та можливості гнучкості внесення змін до планів життєвого циклу розроблення ПЗ", Value = Randomize(), GroupName="Множина джерел появи планових ризиків", Number = "3.1"},
                 new Row() { Name = "Можливості порушення встановлених термінів реалізації етапів життєвого циклу розроблення ПЗ", Value = Randomize(), GroupName="Множина джерел появи планових ризиків", Number = "3.2"},
                 new Row() { Name = "Низька ступінь реалізму при встановленні планів і етапів життєвого циклу розроблення ПЗ", Value = Randomize(), GroupName="Множина джерел появи планових ризиків", Number = "3.3"},
 
-                new RowWithPercent() { Name = "Множина джерел появи ризиків реалізації процесу управління програмним проектом", Value = Randomize(), IsHeader=true, Number = "4"},
+                new RowWithPercent() { Name = "Множина джерел появи ризиків реалізації процесу управління програмним проектом", min =0, max=100, Value = Randomize(), IsHeader=true, Number = "4"},
                 new Row() { Name = "Хибна стратегія реалізації програмного проекту", Value = Randomize(), GroupName="Множина джерел появи ризиків реалізації процесу управління програмним проектом", Number = "4.1"},
                 new Row() { Name = "Неефективне планування проекту розроблення ПЗ", Value = Randomize(), GroupName="Множина джерел появи ризиків реалізації процесу управління програмним проектом", Number = "4.2"},
                 new Row() { Name = "Неякісне оцінювання програмного проекту", Value = Randomize(), GroupName="Множина джерел появи ризиків реалізації процесу управління програмним проектом", Number = "4.3"},
                 new Row() { Name = "Прогалини в документуванні етапів реалізації програмного проекту", Value = Randomize(), GroupName="Множина джерел появи ризиків реалізації процесу управління програмним проектом", Number = "4.4"},
                 new Row() { Name = "Промахи в прогнозуванні результатів реалізації програмного проекту", Value = Randomize(), GroupName="Множина джерел появи ризиків реалізації процесу управління програмним проектом", Number = "4.5"},
 
-                new RowWithTotal() { Name = "Сума", Value = Randomize(), IsHeader = true, GroupName="", Number = ""},
+                new RowWithTotal() { Name = "Сума", Value = Randomize(), min =0, max=100, IsHeader = true, GroupName="", Number = ""},
             };
 
             RecalculateFirstTableRows();
@@ -76,7 +78,7 @@ namespace _7analiz
         {
             SecondTableRows = new ObservableCollection<Row>
             {
-                new RowWithPercent() { Name = "Множина настання технічних ризикових подій", Value = 0, IsHeader=true, Number = "1"},
+                new RowWithPercent() { Name = "Множина настання технічних ризикових подій", min =0, max=100, Value = 0, IsHeader=true, Number = "1"},
                 new Row() { Name = "Затримки у постачанні обладнання, необхідного для підтримки процесу розроблення ПЗ", Value = Randomize(), GroupName="Множина настання технічних ризикових подій", Number = "1.1"},
                 new Row() { Name = "Затримки у постачанні інструментальних засобів, необхідних для підтримки процесу розроблення ПЗ", Value = Randomize(), GroupName="Множина настання технічних ризикових подій", Number = "1.2"},
                 new Row() { Name = "Небажання команди виконавців використовувати інструментальні засоби для підтримки процесу розроблення ПЗ", Value = Randomize(), GroupName="Множина настання технічних ризикових подій", Number = "1.3"},
@@ -89,7 +91,7 @@ namespace _7analiz
                 new Row() { Name = "Швидкість виявлення дефектів у програмному коді є нижчою від раніше запланованих термінів", Value = Randomize(), GroupName="Множина настання технічних ризикових подій", Number = "1.10"},
                 new Row() { Name = "Поява дефектних системних компонент, які використовують для розроблення ПЗ", Value = Randomize(), GroupName="Множина настання технічних ризикових подій", Number = "1.11"},
 
-                new RowWithPercent() { Name = "Множина настання вартісних ризикових подій", Value = 0, IsHeader = true, Number = "2"},
+                new RowWithPercent() { Name = "Множина настання вартісних ризикових подій", min =0, max=100, Value = 0, IsHeader = true, Number = "2"},
                 new Row() { Name = "Недо(пере)оцінювання витрат на реалізацію програмного проекту (надмірно низька вартість)", Value = Randomize(), GroupName="Множина настання вартісних ризикових подій", Number = "2.1"},
                 new Row() { Name = "Фінансові ускладнення у компанії-замовника ПЗ", Value = Randomize(), GroupName="Множина настання вартісних ризикових подій", Number = "2.2"},
                 new Row() { Name = "Фінансові ускладнення у компанії-розробника ПЗ", Value = Randomize(), GroupName="Множина настання вартісних ризикових подій", Number = "2.3"},
@@ -98,7 +100,7 @@ namespace _7analiz
                 new Row() { Name = "Реорганізація структурних підрозділів у компанії-замовника ПЗ", Value = Randomize(), GroupName="Множина настання вартісних ризикових подій", Number = "2.6"},
                 new Row() { Name = "Реорганізація команди виконавців у компанії-розробника ПЗ", Value = Randomize(), GroupName="Множина настання вартісних ризикових подій", Number = "2.7"},
 
-                new RowWithPercent() { Name = "Множина настання планових ризикових подій", Value = 0, IsHeader = true, Number = "3"},
+                new RowWithPercent() { Name = "Множина настання планових ризикових подій", min =0, max=100, Value = 0, IsHeader = true, Number = "3"},
                 new Row() { Name = "Зміни графіка виконання робіт з боку замовника чи розробника ПЗ", Value = Randomize(), GroupName="Множина настання планових ризикових подій", Number = "3.1"},
                 new Row() { Name = "Порушення графіка виконання робіт з боку компанії-розробника ПЗ", Value = Randomize(), GroupName="Множина настання планових ризикових подій", Number = "3.2"},
                 new Row() { Name = "Потреба зміни користувацьких вимог до ПЗ з боку компанії-замовника ПЗ", Value = Randomize(), GroupName="Множина настання планових ризикових подій", Number = "3.3"},
@@ -109,7 +111,7 @@ namespace _7analiz
                 new Row() { Name = "Поява на ринку аналогічного ПЗ до виходу замовленого", Value = Randomize(), GroupName="Множина настання планових ризикових подій", Number = "3.8"},
                 new Row() { Name = "Поява на ринку більш конкурентоздатного ПЗ", Value = Randomize(), GroupName="Множина настання планових ризикових подій", Number = "3.9"},
 
-                new RowWithPercent() { Name = "Множина настання ризикових подій реалізації процесу управління програмним проектом", Value = 0, IsHeader = true, Number = "4"},
+                new RowWithPercent() { Name = "Множина настання ризикових подій реалізації процесу управління програмним проектом", min =0, max=100, Value = 0, IsHeader = true, Number = "4"},
                 new Row() { Name = "Низький моральний стан персоналу команди виконавців ПЗ", Value = Randomize(), GroupName="Множина настання ризикових подій реалізації процесу управління програмним проектом", Number = "4.1"},
                 new Row() { Name = "Низька взаємодія між членами команди виконавців ПЗ", Value = Randomize(), GroupName="Множина настання ризикових подій реалізації процесу управління програмним проектом", Number = "4.2"},
                 new Row() { Name = "Пасивність керівника (менеджера) програмного проекту", Value = Randomize(), GroupName="Множина настання ризикових подій реалізації процесу управління програмним проектом", Number = "4.3"},
@@ -125,7 +127,7 @@ namespace _7analiz
                 new Row() { Name = "Нереалістичне прогнозування результатів на етапах реалізації програмного проекту", Value = Randomize(), GroupName="Множина настання ризикових подій реалізації процесу управління програмним проектом", Number = "4.13"},
                 new Row() { Name = "Недостатній професійний рівень представників від компанії-замовника ПЗ", Value = Randomize(), GroupName="Множина настання ризикових подій реалізації процесу управління програмним проектом", Number = "4.14"},
 
-                new RowWithTotal() { Name = "Сума", Value = Randomize(), IsHeader = true, GroupName="", Number = ""},
+                new RowWithTotal() { Name = "Сума", Value = Randomize(), min =0, max=100, IsHeader = true, GroupName="", Number = ""},
             };
 
             RecalculateSecondTableRows();
@@ -140,6 +142,8 @@ namespace _7analiz
                 {
                     Name = "Множина настання технічних ризикових подій",
                     IsHeader = true,
+                    min = 0,
+                    max =100,
                     Value = SecondTableRows.Count(x=>x.GroupName == "Множина настання технічних ризикових подій"),
                     Number = "1",
                     ExpertCoefficients = new ObservableCollection<double>(Enumerable.Repeat(0d,10)),
@@ -148,6 +152,8 @@ namespace _7analiz
                 {
                     Name = "Множина настання вартісних ризикових подій",
                     IsHeader = true,
+                    min = 0,
+                    max =100,
                     Value = SecondTableRows.Count(x=>x.GroupName == "Множина настання вартісних ризикових подій"),
                     Number = "2",
                     ExpertCoefficients = new ObservableCollection<double>(Enumerable.Repeat(0d,10)),
@@ -156,6 +162,8 @@ namespace _7analiz
                 {
                     Name = "Множина настання планових ризикових подій",
                     IsHeader = true,
+                    min = 0,
+                    max =100,
                     Value = SecondTableRows.Count(x=>x.GroupName == "Множина настання планових ризикових подій"),
                     Number = "3",
                     ExpertCoefficients = new ObservableCollection<double>(Enumerable.Repeat(0d,10)),
@@ -164,6 +172,8 @@ namespace _7analiz
                 {
                     Name = "Множина настання ризикових подій реалізації процесу управління програмним проектом",
                     IsHeader = true,
+                    min = 0,
+                    max =100,
                     Value = SecondTableRows.Count(x=>x.GroupName == "Множина настання ризикових подій реалізації процесу управління програмним проектом"),
                     Number = "4",
                     ExpertCoefficients = new ObservableCollection<double>(Enumerable.Repeat(0d,10)),
@@ -171,6 +181,39 @@ namespace _7analiz
             };
 
             this.RandomizeExpertCoefs();
+        }
+
+        void InitializeExpertMarksTable()
+        {
+            ExpertMarks = new ObservableCollection<RowWithExpertMarks>();
+            ExpertMarks.Add(ExpertCoefs[0]);
+            ExpertMarks = new ObservableCollection<RowWithExpertMarks>(ExpertMarks.Union(SecondTableRows.Where(x=>x.GroupName==ExpertMarks[0].Name).Select(x => new RowWithExpertMarks()
+            {
+                GroupName = x.GroupName,
+                Name = x.Name,
+                Value = x.Value,
+                IsHeader = false,
+                Number = x.Number,
+                ExpertCoefficients = new ObservableCollection<double>(Enumerable.Repeat(0d, 10))
+            })));
+
+            RandomizeExpertMarks();
+        }
+
+        void CalculateExpertMarksTable()
+        {
+            foreach (var row in ExpertMarks.Where(x=>x.GroupName == ExpertCoefs[0].Name))
+            {
+                if (row.ExpertCoefficients.Count > 10)
+                {
+                    row.ExpertCoefficients = new ObservableCollection<double>(row.ExpertCoefficients.Take(10));
+                }
+                for (int i = 0; i < ExpertCoefs[0].ExpertCoefficients.Count;i++)
+                {
+                    row.ExpertCoefficients.Add(row.ExpertCoefficients[i]* ExpertCoefs[0].ExpertCoefficients[i]);
+                }
+                row.ExpertCoefficients.Add(row.ExpertCoefficients.Skip(10).Average());
+            }
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -301,6 +344,18 @@ namespace _7analiz
             }
         }
 
+        void RandomizeExpertMarks()
+        {
+            foreach (var row in ExpertMarks.Where(x=> !x.IsHeader))
+            {
+                for (var i = 0; i < 10; i++)
+                {
+                    row.ExpertCoefficients[i] = rand.NextDouble();
+                }
+            }
+            CalculateExpertMarksTable();
+        }
+
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         double Randomize()
@@ -321,9 +376,12 @@ namespace _7analiz
             GenerateFirstTableRows();
             GenerateSecondTableRows();
             RandomizeExpertCoefs();
+            RandomizeExpertMarks();
             OnPropertyChanged("FirstTableRows");
             OnPropertyChanged("SecondTableRows");
             OnPropertyChanged(nameof(ExpertCoefs));
+            OnPropertyChanged(nameof(ExpertMarks));
+            OnPropertyChanged(nameof(RowWithExpertMarks.ExpertCoefficients));
         }
         private void FirstTable_OnSourceUpdated(object sender, DataTransferEventArgs e)
         {

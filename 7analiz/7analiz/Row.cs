@@ -22,7 +22,7 @@ namespace _7analiz
 
             set
             {
-                if (!IsHeader && (value < 0 || value > 1))
+                if (value<min || value> max)
                     return;
 
                 this.value = value;
@@ -31,6 +31,9 @@ namespace _7analiz
         }
         public string GroupName { get; set; }
         public bool IsHeader { get; set; }
+
+        public double min = 0;
+        public double max = 1; // areused for cheking in set
 
         public event PropertyChangedEventHandler PropertyChanged;
 

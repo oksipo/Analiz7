@@ -10,5 +10,7 @@ namespace _7analiz
     public class RowWithExpertMarks : Row
     {
         public ObservableCollection<double> ExpertCoefficients { get; set; }
+
+        public string Level { get; set; }
     }
 }
