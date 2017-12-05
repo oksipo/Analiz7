@@ -14,6 +14,7 @@ namespace _7analiz
         public ObservableCollection<Row> FirstTableRows { get; set; }
         public ObservableCollection<Row> SecondTableRows { get; set; }
         public ObservableCollection<RowWithExpertMarks> ExpertCoefs { get; set; }
+        public ObservableCollection<SolutionRow> SolutionsTableRows { get; set; }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -26,6 +27,7 @@ namespace _7analiz
             InitializeComponent();
             InitializeFirstTable();
             InitializeSecondTable();
+            InitializeSolutionTableRows();
             InitializeExpertCoefsTable();
             this.DataContext = this;
         }
@@ -130,8 +132,6 @@ namespace _7analiz
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-        //TODO IMPORTANT!!! FIX VALUE AFTER CREATING SECOND TAB!!!!
         void InitializeExpertCoefsTable()
         {
             ExpertCoefs = new ObservableCollection<RowWithExpertMarks>
@@ -171,6 +171,35 @@ namespace _7analiz
             };
 
             this.RandomizeExpertCoefs();
+        }
+
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        void InitializeSolutionTableRows()
+        {
+            SolutionsTableRows = new ObservableCollection<SolutionRow>
+            {
+                new SolutionRow(){ Number=1, Name = "Попереднє навчання членів проектного колективу", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=2, Name = "Узгодження детального переліку вимог до ПЗ із замовником", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=3, Name = "Внесення узгодженого переліку вимог до ПЗ замовника в договір", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=4, Name = "Точне слідування вимогам замовника з узгодженого переліку вимог до ПЗ", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=5, Name = "Попередні дослідження ринку", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=6, Name = "Експертна оцінка програмного проекту досвідченим стороннім консультантом", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=7, Name = "Консультації досвідченого стороннього консультанта", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=8, Name = "Тренінг з вивчення необхідних інструментів розроблення ПЗ", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=9, Name = "Укладання договору страхування", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=10, Name = "Використання 'шаблонних' рішень з вдалих попередніх проектів при управлінні програмним проектом", col1 = "", col2 = "", col3 = "", col4 = ""},
+
+                new SolutionRow(){ Number=11, Name = "Підготовка документів, які показують важливість даного проекту для досягнення фінансових цілей компанії-розробника", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=12, Name = "Реорганізація роботи проектного колективу так, щоб обов'язки та робота членів колективу перекривали один одного", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=13, Name = "Придбання (замовлення) частини компонент розроблюваного ПЗ", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=14, Name = "Заміна потенційно дефектних компонент розроблюваного ПЗ придбаними компонентами, які гарантують якість виконання роботи", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=15, Name = "Придбання більш продуктивної бази даних", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=16, Name = "Використання генератора програмного коду", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=17, Name = "Реорганізація роботи проектного колективу залежно від рівня труднощів виконання завдань та професійних рівнів розробників", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=18, Name = "Повторне використання придатних компонент ПЗ, які були розроблені для інших програмних проектів", col1 = "", col2 = "", col3 = "", col4 = ""},
+                new SolutionRow(){ Number=19, Name = "Аналіз доцільності розроблення даного ПЗ", col1 = "", col2 = "", col3 = "", col4 = ""},
+            };
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------

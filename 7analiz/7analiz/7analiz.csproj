@@ -54,10 +54,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Row.cs" />
     <Compile Include="RowWithExpertMarks.cs" />
     <Compile Include="RowWithTotal.cs" />
     <Compile Include="RowWithPercent.cs" />
-    <Compile Include="Row.cs" />
+    <Compile Include="SolutionRow.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

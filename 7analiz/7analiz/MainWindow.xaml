@@ -65,14 +65,15 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="label2_Copy" Content="                                            Етап 1. Ідентифікація ризиків розроблення ПЗ." Margin="-1,0,0,0.2" Width="631" HorizontalAlignment="Left"/>
-            <Label x:Name="label2" Content="                                           Етап 2. Аналіз ризиків розроблення ПЗ" Margin="630,0,0,0.2" Width="618" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
+            <Label x:Name="label2_Copy" Content="           Етап 1. Ідентифікація ризиків розроблення ПЗ." Margin="-1,0,0,0" Width="423" HorizontalAlignment="Left"/>
+            <Label x:Name="label2" Content="                                                           Етап 2. Аналіз ризиків розроблення ПЗ" Margin="422,0,0,0" Width="800" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
+            <Label x:Name="label2_Copy1" Content="Етап 3. Планування ризиків розроблення ПЗ" Margin="453.2,0,0,0" Width="321" HorizontalAlignment="Left" Grid.Column="1"/>
 
         </Grid>
 
         <Grid Margin="0,0,0,0">
             <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,-0.4,0" >
-                <TabItem Header="Визначення можливих джерел появи ризиків" Margin="-2,0,-1.2,-1.8">
+                <TabItem Header="Можливі джерела появи ризиків" Margin="-2,0,-1.2,-1.8">
                     <Grid Background="Transparent">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="187*"/>
@@ -81,7 +82,7 @@
 
                         <DataGrid x:Name="FirstTable" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                       ItemsSource = "{Binding FirstTableRows}" AutoGenerateColumns="False" SourceUpdated="FirstTable_OnSourceUpdated" 
-                                      CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,10,0,0.2" Grid.ColumnSpan="2" Width="1538">
+                                      CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,10,0,0.2" Grid.ColumnSpan="2">
 
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridRow}">
@@ -110,14 +111,18 @@
                         </DataGrid>
 
                     </Grid>
-                
+
                 </TabItem>
-                <TabItem Header="Ідентифікація потенційних ризикових подій" Margin="-1.8,0,-1.4,-0.8">
+                <TabItem Header="Потенційні ризикові події" Margin="-2.2,0,0.8,-0.8">
                     <Grid Background="Transparent" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="144*"/>
+                            <ColumnDefinition Width="277*"/>
+                        </Grid.ColumnDefinitions>
 
                         <DataGrid x:Name="SecondTable" HorizontalAlignment="Stretch" VerticalAlignment="top"
                               ItemsSource = "{Binding SecondTableRows}" AutoGenerateColumns="False" SourceUpdated="SecondTable_OnSourceUpdated" 
-                              CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,10,0,0.4" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="700">
+                              CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,10,0,0" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="700" Grid.ColumnSpan="2">
 
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridRow}">
@@ -148,7 +153,7 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="Аналіз ризиків розроблення ПЗ" Margin="-1.6,0,-1.6,-0.8">
+                <TabItem Header="Ймовірності настання ризикових подій" Margin="-1.8,0,2.8,-0.8">
                     <Grid VerticalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="211*"/>
@@ -157,7 +162,7 @@
 
                         <Label  Content="Коефіцієнти вагомості кожного з експертів  для ймовірності настання ризикових подій" HorizontalAlignment="Left" Margin="10,10,0,-0.2" VerticalAlignment="Top" Height="31" Grid.ColumnSpan="2"/>
 
-                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ExpertCoefs}" Grid.ColumnSpan="2" Margin="0,0,0,-0.2">
+                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ExpertCoefs}" Grid.ColumnSpan="2" Margin="0,0,0,-0.2"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn   Header="#"                 Binding= "{Binding Number, Mode=TwoWay}"  IsReadOnly="True"/>
                                 <DataGridTextColumn   Header="Множина ризиків"   Binding= "{Binding Name, Mode=TwoWay}"  IsReadOnly="True"/>
@@ -177,6 +182,41 @@
 
                     </Grid>
                 </TabItem>
+
+                <TabItem Header="Частки можливих збитків від прояву та величини збитків від прояву ризиків" Margin="-2,0,6,-1.8">
+
+                </TabItem>
+
+                <TabItem Header="Заходи із зменшення або усунення" Margin="-6,0,-57.4,-1.8">
+
+                    <Grid Background="Transparent" >
+
+                        <DataGrid x:Name="SolutionsTable" HorizontalAlignment="Stretch" VerticalAlignment="top"
+                              ItemsSource = "{Binding SolutionsTableRows}" AutoGenerateColumns="False"
+                              CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,10,0,0.4" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="700">
+
+                            <DataGrid.Columns>
+
+                                <DataGridTextColumn Width="50"  Header="#" Binding= "{Binding Number, Mode=TwoWay}" IsReadOnly="True"/>
+
+                                <DataGridTextColumn Width="600"  Header="Джерело появи ризиків" Binding= "{Binding Name, Mode=TwoWay}" IsReadOnly="True"/>
+
+                                <DataGridTextColumn Width="220"  Header="Пом'якшення" Binding= "{Binding col1, Mode=TwoWay}" />
+
+                                <DataGridTextColumn Width="220"  Header="Прийняття" Binding= "{Binding col2, Mode=TwoWay}" />
+
+                                <DataGridTextColumn Width="220"  Header="Ухилення" Binding= "{Binding col3, Mode=TwoWay}" />
+
+                                <DataGridTextColumn Width="220"  Header="Передача" Binding= "{Binding col4, Mode=TwoWay}" />
+
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+
+                    </Grid>
+
+                </TabItem>
+
             </TabControl>
 
         </Grid>
