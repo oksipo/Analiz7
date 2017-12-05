@@ -186,8 +186,18 @@ namespace _7analiz
         void InitializeExpertMarksTable()
         {
             ExpertMarks = new ObservableCollection<RowWithExpertMarks>();
-            ExpertMarks.Add(ExpertCoefs[0]);
-            ExpertMarks = new ObservableCollection<RowWithExpertMarks>(ExpertMarks.Union(SecondTableRows.Where(x=>x.GroupName==ExpertMarks[0].Name).Select(x => new RowWithExpertMarks()
+            ExpertMarks.Add(new RowWithExpertMarks()
+            {
+                ExpertCoefficients = new ObservableCollection<double>(ExpertCoefs[0].ExpertCoefficients.ToList()),
+                max = 100,
+                min = 1,
+                IsHeader = true,
+                Name = ExpertCoefs[0].Name,
+                Number = "1",
+                Value = ExpertCoefs[0].Value,
+                GroupName = ""
+            });
+            ExpertMarks = new ObservableCollection<RowWithExpertMarks>(ExpertMarks.Union(SecondTableRows.Where(x => x.GroupName == ExpertMarks[0].Name).Select(x => new RowWithExpertMarks()
             {
                 GroupName = x.GroupName,
                 Name = x.Name,
@@ -202,18 +212,74 @@ namespace _7analiz
 
         void CalculateExpertMarksTable()
         {
-            foreach (var row in ExpertMarks.Where(x=>x.GroupName == ExpertCoefs[0].Name))
+            for (int i = 0; i < 10; i++)
+                ExpertMarks[0].ExpertCoefficients[i] = ExpertCoefs[0].ExpertCoefficients[i];
+
+            foreach (var row in ExpertMarks.Where(x => x.GroupName == ExpertCoefs[0].Name))
             {
-                if (row.ExpertCoefficients.Count > 10)
+                var toDelete = row.ExpertCoefficients.Skip(10).ToList();
+                foreach (var VARIABLE in toDelete)
                 {
-                    row.ExpertCoefficients = new ObservableCollection<double>(row.ExpertCoefficients.Take(10));
+                    row.ExpertCoefficients.Remove(VARIABLE);
                 }
-                for (int i = 0; i < ExpertCoefs[0].ExpertCoefficients.Count;i++)
+                row.ExpertCoefficients.Add(row.ExpertCoefficients.Average());
+                for (int i = 0; i < ExpertCoefs[0].ExpertCoefficients.Count; i++)
                 {
-                    row.ExpertCoefficients.Add(row.ExpertCoefficients[i]* ExpertCoefs[0].ExpertCoefficients[i]);
+                    row.ExpertCoefficients.Add(row.ExpertCoefficients[i] * ExpertCoefs[0].ExpertCoefficients[i]);
                 }
-                row.ExpertCoefficients.Add(row.ExpertCoefficients.Skip(10).Average());
+                row.ExpertCoefficients.Add(row.ExpertCoefficients.Skip(11).Sum() / ExpertCoefs[0].ExpertCoefficients.Sum(
+                    ));
+                
             }
+            var t = ExpertMarks[0].ExpertCoefficients.Skip(10).ToList();
+            foreach (var VARIABLE in t)
+            {
+                ExpertMarks[0].ExpertCoefficients.Remove(VARIABLE);
+            }
+            ExpertMarks[0].ExpertCoefficients.Add(ExpertCoefs[0].ExpertCoefficients.Sum());
+            for (int i = 11; i < 21; i++) //zdravstvuy gavnokod
+            {
+                ExpertMarks[0].ExpertCoefficients.Add(
+                    ExpertMarks.
+                    Where(x => x.GroupName == ExpertCoefs[0].Name).
+                    Average(x => x.ExpertCoefficients[i]) /
+                    ExpertCoefs[0].ExpertCoefficients[i - 11]);
+            }
+            ExpertMarks[0].ExpertCoefficients.Add(ExpertMarks.Where(x => x.GroupName == ExpertCoefs[0].Name)
+                .Average(x => x.ExpertCoefficients[21])); // hello kostili my old friends
+                                                          // I`ve come to use you once again
+                                                          // Because bugs softly creeping
+                                                          // Left it seeds while i was coding
+                                                          // And the Linq that was planted in my brain
+                                                          // still remains
+                                                          // Within the sound of Pasha
+                                                          // (c)
+
+            foreach (var row in ExpertMarks)
+            {
+                var last = row.ExpertCoefficients.Last();
+                if (last < 0.1)
+                {
+                    row.Level = "Дуже низькою";
+                }
+                else if (last < 0.25)
+                {
+                    row.Level = "Низькою";
+                }
+                else if (last < 0.5)
+                {
+                    row.Level = "Середньою";
+                }
+                else if (last < 0.75)
+                {
+                    row.Level = "Високою";
+                }
+                else
+                {
+                    row.Level = "Дуже високою";
+                }
+            }
+
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -280,7 +346,7 @@ namespace _7analiz
 
         void GenerateFirstTableRows()
         {
-            foreach(var item in FirstTableRows)
+            foreach (var item in FirstTableRows)
             {
                 item.Value = Randomize();
             }
@@ -339,14 +405,14 @@ namespace _7analiz
             {
                 for (var i = 0; i < row.ExpertCoefficients.Count; i++)
                 {
-                    row.ExpertCoefficients[i] = rand.Next(0, 11);
+                    row.ExpertCoefficients[i] = rand.Next(1, 11);
                 }
             }
         }
 
         void RandomizeExpertMarks()
         {
-            foreach (var row in ExpertMarks.Where(x=> !x.IsHeader))
+            foreach (var row in ExpertMarks.Where(x => !x.IsHeader))
             {
                 for (var i = 0; i < 10; i++)
                 {
@@ -393,6 +459,11 @@ namespace _7analiz
         {
             RecalculateSecondTableRows();
             OnPropertyChanged("SecondTableRows");
+        }
+
+        private void FrameworkElement_OnSourceUpdated(object sender, DataTransferEventArgs e)
+        {
+            this.CalculateExpertMarksTable();
         }
     }
 }

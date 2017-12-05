@@ -9,8 +9,17 @@ namespace _7analiz
 {
     public class RowWithExpertMarks : Row
     {
+        private string level;
         public ObservableCollection<double> ExpertCoefficients { get; set; }
 
-        public string Level { get; set; }
+        public string Level
+        {
+            get => level;
+            set
+            {
+                this.level = value;
+                OnPropertyChanged(nameof(Level));
+            }
+        }
     }
 }
