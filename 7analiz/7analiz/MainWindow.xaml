@@ -82,7 +82,7 @@
 
                         <DataGrid x:Name="FirstTable" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                       ItemsSource = "{Binding FirstTableRows}" AutoGenerateColumns="False" SourceUpdated="FirstTable_OnSourceUpdated" 
-                                      CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,10,0,0.2" Grid.ColumnSpan="2">
+                                      CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,50,0,0.2" Grid.ColumnSpan="2">
 
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridRow}">
@@ -109,6 +109,7 @@
                             </DataGrid.Columns>
 
                         </DataGrid>
+                        <Label  Content="1.1. Визначення можливих джерел появи ризиків" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31" Grid.ColumnSpan="2" Margin="0,10,0,0"/>
 
                     </Grid>
 
@@ -116,13 +117,15 @@
                 <TabItem Header="Потенційні ризикові події" Margin="-2.2,0,0.8,-0.8">
                     <Grid Background="Transparent" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="144*"/>
-                            <ColumnDefinition Width="277*"/>
+                            <ColumnDefinition Width="221*"/>
+                            <ColumnDefinition Width="67*"/>
+                            <ColumnDefinition Width="71*"/>
+                            <ColumnDefinition Width="483*"/>
                         </Grid.ColumnDefinitions>
 
                         <DataGrid x:Name="SecondTable" HorizontalAlignment="Stretch" VerticalAlignment="top"
                               ItemsSource = "{Binding SecondTableRows}" AutoGenerateColumns="False" SourceUpdated="SecondTable_OnSourceUpdated" 
-                              CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,10,0,0" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="700" Grid.ColumnSpan="2">
+                              CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,50,0,0" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="700" Grid.ColumnSpan="4">
 
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridRow}">
@@ -149,82 +152,84 @@
                             </DataGrid.Columns>
 
                         </DataGrid>
+                        <Label  Content="1.2. Ідентифікація потенційних ризикових подій" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31" Margin="0,10,0,0"/>
 
                     </Grid>
                 </TabItem>
 
                 <TabItem Header="Ймовірності настання ризикових подій" Margin="-1.8,0,2.8,-0.8">
                     <Grid VerticalAlignment="Stretch">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="211*"/>
-                            <ColumnDefinition Width="167*"/>
-                        </Grid.ColumnDefinitions>
 
-                        <Label  Content="Коефіцієнти вагомості кожного з експертів  для ймовірності настання ризикових подій" HorizontalAlignment="Left" Margin="10,10,0,-0.2" VerticalAlignment="Top" Height="31" Grid.ColumnSpan="2"/>
+                        <Label  Content="Коефіцієнти вагомості кожного з експертів  для ймовірності настання ризикових подій" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="31"/>
 
-                        <DataGrid SourceUpdated="FrameworkElement_OnSourceUpdated" AutoGenerateColumns="False" ItemsSource="{Binding ExpertCoefs}" Grid.ColumnSpan="2" Margin="0,0,0,-0.2"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" >
+                        <DataGrid SourceUpdated="FrameworkElement_OnSourceUpdated" AutoGenerateColumns="False" ItemsSource="{Binding ExpertCoefs}" Margin="0,50,0,86.6"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" >
                             <DataGrid.Columns>
-                                <DataGridTextColumn   Header="#"                 Binding= "{Binding Number, Mode=TwoWay}"  IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="Множина ризиків"   Binding= "{Binding Name, Mode=TwoWay}"  IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="Кількість ризиків" Binding= "{Binding Value, Mode=TwoWay}"  IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="1"                 Binding= "{Binding ExpertCoefficients[0], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="2"                 Binding= "{Binding ExpertCoefficients[1], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="3"                 Binding= "{Binding ExpertCoefficients[2], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="4"                 Binding= "{Binding ExpertCoefficients[3], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="5"                 Binding= "{Binding ExpertCoefficients[4], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="6"                 Binding= "{Binding ExpertCoefficients[5], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="7"                 Binding= "{Binding ExpertCoefficients[6], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="8"                 Binding= "{Binding ExpertCoefficients[7], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="9"                 Binding= "{Binding ExpertCoefficients[8], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="10"                Binding= "{Binding ExpertCoefficients[9], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="#"                 Binding= "{Binding Number, Mode=TwoWay}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="800" Header="Множина ризиків"   Binding= "{Binding Name, Mode=TwoWay}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="190" Header="Кількість ризиків" Binding= "{Binding Value, Mode=TwoWay}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="50" Header="1"                 Binding= "{Binding ExpertCoefficients[0], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="2"                 Binding= "{Binding ExpertCoefficients[1], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="3"                 Binding= "{Binding ExpertCoefficients[2], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="4"                 Binding= "{Binding ExpertCoefficients[3], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="5"                 Binding= "{Binding ExpertCoefficients[4], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="6"                 Binding= "{Binding ExpertCoefficients[5], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="7"                 Binding= "{Binding ExpertCoefficients[6], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="8"                 Binding= "{Binding ExpertCoefficients[7], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="9"                 Binding= "{Binding ExpertCoefficients[8], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="10"                Binding= "{Binding ExpertCoefficients[9], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <DataGrid SourceUpdated="FrameworkElement_OnSourceUpdated" AutoGenerateColumns="False" ItemsSource="{Binding ExpertMarks}" Grid.ColumnSpan="2"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0 150 0 0" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="425"  ScrollViewer.HorizontalScrollBarVisibility="Visible" Width="1350">
-                            
+                        <Label  Content="2.1. Визначення ймовірності настання ризикових подій" HorizontalAlignment="Left" Margin="0,172,0,0" VerticalAlignment="Top" Height="31"/>
+
+                        <DataGrid SourceUpdated="FrameworkElement_OnSourceUpdated" AutoGenerateColumns="False" ItemsSource="{Binding ExpertMarks}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,208,0,-0.2" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"  ScrollViewer.HorizontalScrollBarVisibility="Visible">
+
                             <DataGrid.Resources>
-                            <Style TargetType="{x:Type DataGridRow}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsHeader}" Value="True">
-                                        <Setter Property="FontWeight" Value="Bold" />
-                                        <Setter Property="IsEnabled" Value="False" />
-                                        <Setter Property="FontSize" Value="14" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
+                                <Style TargetType="{x:Type DataGridRow}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsHeader}" Value="True">
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                            <Setter Property="FontSize" Value="14" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
                             </DataGrid.Resources>
 
                             <DataGrid.Columns>
-                                <DataGridTextColumn   Header="#"                          Binding= "{Binding Number,                 Mode=TwoWay}"  IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="Тип ризику"                 Binding= "{Binding Name,                   Mode=TwoWay}"  IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="Імовірність появи ризику"   Binding= "{Binding Value,                  Mode=TwoWay}"  IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="1"                          Binding= "{Binding ExpertCoefficients[0],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="2"                          Binding= "{Binding ExpertCoefficients[1],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="3"                          Binding= "{Binding ExpertCoefficients[2],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="4"                          Binding= "{Binding ExpertCoefficients[3],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="5"                          Binding= "{Binding ExpertCoefficients[4],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="6"                          Binding= "{Binding ExpertCoefficients[5],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="7"                          Binding= "{Binding ExpertCoefficients[6],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="8"                          Binding= "{Binding ExpertCoefficients[7],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="9"                          Binding= "{Binding ExpertCoefficients[8],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="10"                         Binding= "{Binding ExpertCoefficients[9],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
-                                <DataGridTextColumn   Header="Σ"                          Binding= "{Binding ExpertCoefficients[10],  Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True" />
-                                <DataGridTextColumn   Header="1"                          Binding= "{Binding ExpertCoefficients[11], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="2"                          Binding= "{Binding ExpertCoefficients[12], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="3"                          Binding= "{Binding ExpertCoefficients[13], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="4"                          Binding= "{Binding ExpertCoefficients[14], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="5"                          Binding= "{Binding ExpertCoefficients[15], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="6"                          Binding= "{Binding ExpertCoefficients[16], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="7"                          Binding= "{Binding ExpertCoefficients[17], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="8"                          Binding= "{Binding ExpertCoefficients[18], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="9"                          Binding= "{Binding ExpertCoefficients[19], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="10"                         Binding= "{Binding ExpertCoefficients[20], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="Середнє"                    Binding= "{Binding ExpertCoefficients[21], Mode=TwoWay, StringFormat=0.00}"  IsReadOnly="True"/>
-                                <DataGridTextColumn   Header="Ймовірність виникнення є:"  Binding= "{Binding Level,                  Mode=TwoWay}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="50" Header="#"                          Binding= "{Binding Number,                 Mode=TwoWay}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="500" Header="Тип ризику"                 Binding= "{Binding Name,                   Mode=TwoWay}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="200" Header="Імовірність появи ризику"   Binding= "{Binding Value,                  Mode=TwoWay}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="50" Header="1"                          Binding= "{Binding ExpertCoefficients[0],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="2"                          Binding= "{Binding ExpertCoefficients[1],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="3"                          Binding= "{Binding ExpertCoefficients[2],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="4"                          Binding= "{Binding ExpertCoefficients[3],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="5"                          Binding= "{Binding ExpertCoefficients[4],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="6"                          Binding= "{Binding ExpertCoefficients[5],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="7"                          Binding= "{Binding ExpertCoefficients[6],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="8"                          Binding= "{Binding ExpertCoefficients[7],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="9"                          Binding= "{Binding ExpertCoefficients[8],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="10"                         Binding= "{Binding ExpertCoefficients[9],  Mode=TwoWay, StringFormat=0.00, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
+                                <DataGridTextColumn   Width="50" Header="Σ"                          Binding= "{Binding ExpertCoefficients[10],  Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True" />
+                                <DataGridTextColumn   Width="50" Header="1"                          Binding= "{Binding ExpertCoefficients[11], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="50" Header="2"                          Binding= "{Binding ExpertCoefficients[12], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="50" Header="3"                          Binding= "{Binding ExpertCoefficients[13], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="50" Header="4"                          Binding= "{Binding ExpertCoefficients[14], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="50" Header="5"                          Binding= "{Binding ExpertCoefficients[15], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="50" Header="6"                          Binding= "{Binding ExpertCoefficients[16], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="50" Header="7"                          Binding= "{Binding ExpertCoefficients[17], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="50" Header="8"                          Binding= "{Binding ExpertCoefficients[18], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="50" Header="9"                          Binding= "{Binding ExpertCoefficients[19], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="50" Header="10"                         Binding= "{Binding ExpertCoefficients[20], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="100" Header="Середнє"                    Binding= "{Binding ExpertCoefficients[21], Mode=TwoWay, StringFormat=0.00}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="200" Header="Ймовірність виникнення є:"  Binding= "{Binding Level,                  Mode=TwoWay}"  IsReadOnly="True"/>
                             </DataGrid.Columns>
                         </DataGrid>
 
                     </Grid>
+
+
+
                 </TabItem>
 
                 <TabItem Header="Частки можливих збитків від прояву та величини збитків від прояву ризиків" Margin="-2,0,6,-1.8">
@@ -237,7 +242,7 @@
 
                         <DataGrid x:Name="SolutionsTable" HorizontalAlignment="Stretch" VerticalAlignment="top"
                               ItemsSource = "{Binding SolutionsTableRows}" AutoGenerateColumns="False"
-                              CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,10,0,0.4" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="700">
+                              CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,50,0,0.4" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="700">
 
                             <DataGrid.Columns>
 
@@ -256,6 +261,7 @@
                             </DataGrid.Columns>
 
                         </DataGrid>
+                        <Label  Content="3.1. Заходи із зменшення або усунення ризику" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31" Margin="0,10,0,0"/>
 
                     </Grid>
 
