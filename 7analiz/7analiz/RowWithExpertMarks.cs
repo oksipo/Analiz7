@@ -9,9 +9,13 @@ namespace _7analiz
 {
     public class RowWithExpertMarks : Row
     {
+        //level of row
         private string level;
+
+        //collection of expert coeficients
         public ObservableCollection<double> ExpertCoefficients { get; set; }
 
+        //level of row (property)
         public string Level
         {
             get => level;

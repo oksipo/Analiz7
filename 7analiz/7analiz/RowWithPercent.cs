@@ -8,8 +8,10 @@ namespace _7analiz
 {
     public class RowWithPercent:Row
     {
+        //row percent
         private double percent;
 
+        //row percent (property)
         public double Percent
         {
             get
@@ -20,7 +22,7 @@ namespace _7analiz
             set
             {
                 percent = value;
-                OnPropertyChanged("Percent");
+                OnPropertyChanged(nameof(Percent));
             }
         }
     }

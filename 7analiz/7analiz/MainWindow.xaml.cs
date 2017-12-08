@@ -9,35 +9,48 @@ namespace _7analiz
 {
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-
+        //variable for randomizing list values
         Random rand = new Random();
-        public ObservableCollection<Row> FirstTableRows { get; set; }
-        public ObservableCollection<Row> SecondTableRows { get; set; }
-        public ObservableCollection<RowWithExpertMarks> ExpertCoefs { get; set; }
-        public ObservableCollection<RowWithExpertMarks> ExpertMarks { get; set; }
-        public ObservableCollection<SolutionRow> SolutionsTableRows { get; set; }
+
+        //lists of rows
+        public ObservableCollection<Row> FirstTableRows { get; set; }                   //rows for first table
+        public ObservableCollection<Row> SecondTableRows { get; set; }                  //rows for second table
+        public ObservableCollection<RowWithExpertMarks> ExpertCoefs { get; set; }       //rows for table with expert coefs #1
+        public ObservableCollection<RowWithExpertMarks> ExpertMarks { get; set; }       //rows for table with expert marks #1
+        public ObservableCollection<SolutionRow> SolutionsTableRows { get; set; }       //rows for table with solutions
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        //event on property changing
         public event PropertyChangedEventHandler PropertyChanged;
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        //constructor
         public MainWindow()
         {
+            //initializing form
             InitializeComponent();
+
+            //initializing tables
             InitializeFirstTable();
-            InitializeSecondTable();
-            InitializeSolutionTableRows();
+            InitializeSecondTable();         
             InitializeExpertCoefsTable();
             InitializeExpertMarksTable();
+            InitializeSolutionTableRows();
+
+            //setting data context
             this.DataContext = this;
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //INITIALIZATION TABLES
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        //initializing first table
         void InitializeFirstTable()
         {
+            //creating rows
             FirstTableRows = new ObservableCollection<Row>
             {
                 new RowWithPercent() { Name = "Множина джерел появи технічних ризиків", min =0, max=100, Value = 0, IsHeader=true, Number = "1"},
@@ -69,13 +82,16 @@ namespace _7analiz
                 new RowWithTotal() { Name = "Сума", Value = Randomize(), min =0, max=100, IsHeader = true, GroupName="", Number = ""},
             };
 
+            //recalculating values for first table
             RecalculateFirstTableRows();
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        //initializing second table
         void InitializeSecondTable()
         {
+            //creating rows
             SecondTableRows = new ObservableCollection<Row>
             {
                 new RowWithPercent() { Name = "Множина настання технічних ризикових подій", min =0, max=100, Value = 0, IsHeader=true, Number = "1"},
@@ -130,12 +146,16 @@ namespace _7analiz
                 new RowWithTotal() { Name = "Сума", Value = Randomize(), min =0, max=100, IsHeader = true, GroupName="", Number = ""},
             };
 
+            //recalculating values for second table
             RecalculateSecondTableRows();
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        //initializing table with expert coefs #1
         void InitializeExpertCoefsTable()
         {
+            //creating rows
             ExpertCoefs = new ObservableCollection<RowWithExpertMarks>
             {
                 new RowWithExpertMarks
@@ -180,12 +200,18 @@ namespace _7analiz
                 }
             };
 
+            //randomizing expert coefs
             this.RandomizeExpertCoefs();
         }
 
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        //initializing table with expert marks #1
         void InitializeExpertMarksTable()
         {
+            //creating rows
             ExpertMarks = new ObservableCollection<RowWithExpertMarks>();
+
             ExpertMarks.Add(new RowWithExpertMarks()
             {
                 ExpertCoefficients = new ObservableCollection<double>(ExpertCoefs[0].ExpertCoefficients.ToList()),
@@ -197,6 +223,7 @@ namespace _7analiz
                 Value = ExpertCoefs[0].Value,
                 GroupName = ""
             });
+
             ExpertMarks = new ObservableCollection<RowWithExpertMarks>(ExpertMarks.Union(SecondTableRows.Where(x => x.GroupName == ExpertMarks[0].Name).Select(x => new RowWithExpertMarks()
             {
                 GroupName = x.GroupName,
@@ -207,85 +234,16 @@ namespace _7analiz
                 ExpertCoefficients = new ObservableCollection<double>(Enumerable.Repeat(0d, 10))
             })));
 
+            //randomizing expert marks
             RandomizeExpertMarks();
-        }
-
-        void CalculateExpertMarksTable()
-        {
-            for (int i = 0; i < 10; i++)
-                ExpertMarks[0].ExpertCoefficients[i] = ExpertCoefs[0].ExpertCoefficients[i];
-
-            foreach (var row in ExpertMarks.Where(x => x.GroupName == ExpertCoefs[0].Name))
-            {
-                var toDelete = row.ExpertCoefficients.Skip(10).ToList();
-                foreach (var VARIABLE in toDelete)
-                {
-                    row.ExpertCoefficients.Remove(VARIABLE);
-                }
-                row.ExpertCoefficients.Add(row.ExpertCoefficients.Average());
-                for (int i = 0; i < ExpertCoefs[0].ExpertCoefficients.Count; i++)
-                {
-                    row.ExpertCoefficients.Add(row.ExpertCoefficients[i] * ExpertCoefs[0].ExpertCoefficients[i]);
-                }
-                row.ExpertCoefficients.Add(row.ExpertCoefficients.Skip(11).Sum() / ExpertCoefs[0].ExpertCoefficients.Sum(
-                    ));
-                
-            }
-            var t = ExpertMarks[0].ExpertCoefficients.Skip(10).ToList();
-            foreach (var VARIABLE in t)
-            {
-                ExpertMarks[0].ExpertCoefficients.Remove(VARIABLE);
-            }
-            ExpertMarks[0].ExpertCoefficients.Add(ExpertCoefs[0].ExpertCoefficients.Sum());
-            for (int i = 11; i < 21; i++) //zdravstvuy gavnokod
-            {
-                ExpertMarks[0].ExpertCoefficients.Add(
-                    ExpertMarks.
-                    Where(x => x.GroupName == ExpertCoefs[0].Name).
-                    Average(x => x.ExpertCoefficients[i]) /
-                    ExpertCoefs[0].ExpertCoefficients[i - 11]);
-            }
-            ExpertMarks[0].ExpertCoefficients.Add(ExpertMarks.Where(x => x.GroupName == ExpertCoefs[0].Name)
-                .Average(x => x.ExpertCoefficients[21])); // hello kostili my old friends
-                                                          // I`ve come to use you once again
-                                                          // Because bugs softly creeping
-                                                          // Left it seeds while i was coding
-                                                          // And the Linq that was planted in my brain
-                                                          // still remains
-                                                          // Within the sound of Pasha
-                                                          // (c)
-
-            foreach (var row in ExpertMarks)
-            {
-                var last = row.ExpertCoefficients.Last();
-                if (last < 0.1)
-                {
-                    row.Level = "Дуже низькою";
-                }
-                else if (last < 0.25)
-                {
-                    row.Level = "Низькою";
-                }
-                else if (last < 0.5)
-                {
-                    row.Level = "Середньою";
-                }
-                else if (last < 0.75)
-                {
-                    row.Level = "Високою";
-                }
-                else
-                {
-                    row.Level = "Дуже високою";
-                }
-            }
-
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        //initializing table with solutions
         void InitializeSolutionTableRows()
         {
+            //creating rows
             SolutionsTableRows = new ObservableCollection<SolutionRow>
             {
                 new SolutionRow(){ Number=1, Name = "Попереднє навчання членів проектного колективу", col1 = "", col2 = "", col3 = "", col4 = ""},
@@ -312,11 +270,54 @@ namespace _7analiz
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //RANDOMIZATION VALUES
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        //randomizing decimal values
+        double Randomize()
+        {
+            return rand.NextDouble();
+        }
+
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        //randomizing expert coefs
+        void RandomizeExpertCoefs()
+        {
+            foreach (var row in ExpertCoefs)
+            {
+                for (var i = 0; i < row.ExpertCoefficients.Count; i++)
+                {
+                    row.ExpertCoefficients[i] = rand.Next(1, 11);
+                }
+            }
+        }
+
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        //randomizing expert marks
+        void RandomizeExpertMarks()
+        {
+            foreach (var row in ExpertMarks.Where(x => !x.IsHeader))
+            {
+                for (var i = 0; i < 10; i++)
+                {
+                    row.ExpertCoefficients[i] = rand.NextDouble();
+                }
+            }
+
+            //calculating values for expert marks
+            CalculateExpertMarksTable();
+        }
+
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //RECALCULATING TABLE VALUES
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        //recalculating values in first table after changes of random values
         void RecalculateFirstTableRows()
         {
-            int forCount = FirstTableRows.Count() -
-                           FirstTableRows.Count(x => x is RowWithPercent || x is RowWithTotal);
+            int forCount = FirstTableRows.Count() - FirstTableRows.Count(x => x is RowWithPercent || x is RowWithTotal);
 
             foreach (var item in FirstTableRows.Where(x => x is RowWithPercent))
             {
@@ -344,18 +345,7 @@ namespace _7analiz
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        void GenerateFirstTableRows()
-        {
-            foreach (var item in FirstTableRows)
-            {
-                item.Value = Randomize();
-            }
-
-            RecalculateFirstTableRows();
-        }
-
-        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+        //recalculating values in second table after changes of random values
         void RecalculateSecondTableRows()
         {
             int forCount = SecondTableRows.Count() -
@@ -387,6 +377,111 @@ namespace _7analiz
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        //recalculating values in table with expert marks after changes of random values
+        void CalculateExpertMarksTable()
+        {
+            for (int i = 0; i < 10; i++)
+                ExpertMarks[0].ExpertCoefficients[i] = ExpertCoefs[0].ExpertCoefficients[i];
+
+            foreach (var row in ExpertMarks.Where(x => x.GroupName == ExpertCoefs[0].Name))
+            {
+                var toDelete = row.ExpertCoefficients.Skip(10).ToList();
+                foreach (var VARIABLE in toDelete)
+                {
+                    row.ExpertCoefficients.Remove(VARIABLE);
+                }
+                row.ExpertCoefficients.Add(row.ExpertCoefficients.Average());
+                for (int i = 0; i < ExpertCoefs[0].ExpertCoefficients.Count; i++)
+                {
+                    row.ExpertCoefficients.Add(row.ExpertCoefficients[i] * ExpertCoefs[0].ExpertCoefficients[i]);
+                }
+                row.ExpertCoefficients.Add(row.ExpertCoefficients.Skip(11).Sum() / ExpertCoefs[0].ExpertCoefficients.Sum(
+                    ));
+                
+            }
+            var t = ExpertMarks[0].ExpertCoefficients.Skip(10).ToList();
+            foreach (var VARIABLE in t)
+            {
+                ExpertMarks[0].ExpertCoefficients.Remove(VARIABLE);
+            }
+            ExpertMarks[0].ExpertCoefficients.Add(ExpertCoefs[0].ExpertCoefficients.Sum());
+            for (int i = 11; i < 21; i++) 
+            {
+                ExpertMarks[0].ExpertCoefficients.Add(
+                    ExpertMarks.
+                    Where(x => x.GroupName == ExpertCoefs[0].Name).
+                    Average(x => x.ExpertCoefficients[i]) /
+                    ExpertCoefs[0].ExpertCoefficients[i - 11]);
+            }
+            ExpertMarks[0].ExpertCoefficients.Add(ExpertMarks.Where(x => x.GroupName == ExpertCoefs[0].Name)
+                .Average(x => x.ExpertCoefficients[21]));
+
+            //setting level according to result
+            foreach (var row in ExpertMarks)
+            {
+                var last = row.ExpertCoefficients.Last();
+                if (last < 0.1)
+                {
+                    row.Level = "Дуже низькою";
+                }
+                else if (last < 0.25)
+                {
+                    row.Level = "Низькою";
+                }
+                else if (last < 0.5)
+                {
+                    row.Level = "Середньою";
+                }
+                else if (last < 0.75)
+                {
+                    row.Level = "Високою";
+                }
+                else
+                {
+                    row.Level = "Дуже високою";
+                }
+            }
+
+        }
+
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //GENERATING RANDOM VALUES FOR ALL TABLES
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        //randomizing everything
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            //generating random values for all tables
+            GenerateFirstTableRows();
+            GenerateSecondTableRows();
+            RandomizeExpertCoefs();
+            RandomizeExpertMarks();
+
+            //indicating that tables were changed
+            OnPropertyChanged(nameof(FirstTableRows));
+            OnPropertyChanged(nameof(SecondTableRows));
+            OnPropertyChanged(nameof(ExpertCoefs));
+            OnPropertyChanged(nameof(ExpertMarks));
+            OnPropertyChanged(nameof(RowWithExpertMarks.ExpertCoefficients));
+        }
+
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        //generating random values for whole first table
+        void GenerateFirstTableRows()
+        {
+            foreach (var item in FirstTableRows)
+            {
+                item.Value = Randomize();
+            }
+
+            //recalculating values for first table
+            RecalculateFirstTableRows();
+        }
+
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        //generating random values for whole second table
         void GenerateSecondTableRows()
         {
             foreach (var item in SecondTableRows)
@@ -394,41 +489,12 @@ namespace _7analiz
                 item.Value = Randomize();
             }
 
+            //recalculating values for second table
             RecalculateSecondTableRows();
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-        void RandomizeExpertCoefs()
-        {
-            foreach (var row in ExpertCoefs)
-            {
-                for (var i = 0; i < row.ExpertCoefficients.Count; i++)
-                {
-                    row.ExpertCoefficients[i] = rand.Next(1, 11);
-                }
-            }
-        }
-
-        void RandomizeExpertMarks()
-        {
-            foreach (var row in ExpertMarks.Where(x => !x.IsHeader))
-            {
-                for (var i = 0; i < 10; i++)
-                {
-                    row.ExpertCoefficients[i] = rand.NextDouble();
-                }
-            }
-            CalculateExpertMarksTable();
-        }
-
-        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-        double Randomize()
-        {
-            return rand.NextDouble();
-        }
-
+        //AFTER CHANGING SOMETHING
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         //invoking event after property changed
@@ -437,30 +503,31 @@ namespace _7analiz
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            GenerateFirstTableRows();
-            GenerateSecondTableRows();
-            RandomizeExpertCoefs();
-            RandomizeExpertMarks();
-            OnPropertyChanged("FirstTableRows");
-            OnPropertyChanged("SecondTableRows");
-            OnPropertyChanged(nameof(ExpertCoefs));
-            OnPropertyChanged(nameof(ExpertMarks));
-            OnPropertyChanged(nameof(RowWithExpertMarks.ExpertCoefficients));
-        }
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        //after updating first table
         private void FirstTable_OnSourceUpdated(object sender, DataTransferEventArgs e)
         {
             RecalculateFirstTableRows();
-            OnPropertyChanged("FirstTableRows");
+            OnPropertyChanged(nameof(FirstTableRows));
         }
+        
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        //after updating second table
         private void SecondTable_OnSourceUpdated(object sender, DataTransferEventArgs e)
         {
             RecalculateSecondTableRows();
-            OnPropertyChanged("SecondTableRows");
-        }
+            OnPropertyChanged(nameof(SecondTableRows));
 
+            //randomizing expert marks
+            RandomizeExpertMarks();
+            OnPropertyChanged(nameof(ExpertMarks));
+        }
+        
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        //after updating framewoork element
         private void FrameworkElement_OnSourceUpdated(object sender, DataTransferEventArgs e)
         {
             this.CalculateExpertMarksTable();
