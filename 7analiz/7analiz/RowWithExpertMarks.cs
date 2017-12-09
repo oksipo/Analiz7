@@ -25,5 +25,14 @@ namespace _7analiz
                 OnPropertyChanged(nameof(Level));
             }
         }
+
+        public RowWithExpertMarks()
+        {
+            ExpertCoefficients = new ObservableCollection<double>();
+            for (int i = 0; i < 22; i++)
+            {
+                ExpertCoefficients.Add(0);
+            }
+        }
     }
 }
