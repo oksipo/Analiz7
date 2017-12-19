@@ -16,8 +16,13 @@ namespace _7analiz
         public ObservableCollection<Row> FirstTableRows { get; set; }                   //rows for first table
         public ObservableCollection<Row> SecondTableRows { get; set; }                  //rows for second table
         public ObservableCollection<RowWithExpertMarks> ExpertCoefs { get; set; }       //rows for table with expert coefs #1
+        public ObservableCollection<RowWithExpertMarks> ExpertCoefs2 { get; set; }       //rows for table with expert coefs #1
+
         public ObservableCollection<RowWithExpertMarks> ExpertMarks { get; set; }       //rows for table with expert marks #1
-        public ObservableCollection<SolutionRow> SolutionsTableRows { get; set; }       //rows for table with solutions
+        public ObservableCollection<RowWithExpertMarks> ExpertMarks2 { get; set; }       //rows for table with expert marks #1
+        public ObservableCollection<SolutionRow> SolutionsTableRows { get; set; }
+
+        public ObservableCollection<RowWithExpertMarks> StrangeTable { get; set; }//rows for table with solutions
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -36,8 +41,11 @@ namespace _7analiz
             InitializeFirstTable();
             InitializeSecondTable();
             InitializeExpertCoefsTable();
+            InitializeExpertCoefsTable2();
             InitializeExpertMarksTable();
+            InitializeExpertMarksTable2();
             InitializeSolutionTableRows();
+            InitializeStrangeTable();
 
             //setting data context
             this.DataContext = this;
@@ -193,11 +201,78 @@ namespace _7analiz
                     max =100,
                     Value = SecondTableRows.Count(x=>x.GroupName == "Множина настання ризикових подій реалізації процесу управління програмним проектом"),
                     Number = "4",
+                },
+                new RowWithExpertMarks
+                {
+                    Name = "Сума",
+                    IsHeader = true,
+                    min = 0,
+                    max =100,
+                    Value = 0,
+                    Number = "Σ",
+                    ExpertCoefficients = new ObservableCollection<double?>(Enumerable.Repeat((double?)null,10))
                 }
             };
 
             //randomizing expert coefs
             this.RandomizeExpertCoefs();
+        }
+
+        void InitializeExpertCoefsTable2()
+        {
+            //creating rows
+            ExpertCoefs2 = new ObservableCollection<RowWithExpertMarks>
+            {
+                new RowWithExpertMarks
+                {
+                    Name = "Множина настання технічних ризикових подій",
+                    IsHeader = true,
+                    min = 0,
+                    max =100,
+                    Value = SecondTableRows.Count(x=>x.GroupName == "Множина настання технічних ризикових подій"),
+                    Number = "1",
+                },
+                new RowWithExpertMarks
+                {
+                    Name = "Множина настання вартісних ризикових подій",
+                    IsHeader = true,
+                    min = 0,
+                    max =100,
+                    Value = SecondTableRows.Count(x=>x.GroupName == "Множина настання вартісних ризикових подій"),
+                    Number = "2",
+                },
+                new RowWithExpertMarks
+                {
+                    Name = "Множина настання планових ризикових подій",
+                    IsHeader = true,
+                    min = 0,
+                    max =100,
+                    Value = SecondTableRows.Count(x=>x.GroupName == "Множина настання планових ризикових подій"),
+                    Number = "3",
+                },
+                new RowWithExpertMarks
+                {
+                    Name = "Множина настання ризикових подій реалізації процесу управління програмним проектом",
+                    IsHeader = true,
+                    min = 0,
+                    max =100,
+                    Value = SecondTableRows.Count(x=>x.GroupName == "Множина настання ризикових подій реалізації процесу управління програмним проектом"),
+                    Number = "4",
+                },
+                new RowWithExpertMarks
+                {
+                    Name = "Сума",
+                    IsHeader = true,
+                    min = 0,
+                    max =100,
+                    Value = 0,
+                    Number = "Σ",
+                    ExpertCoefficients = new ObservableCollection<double?>(Enumerable.Repeat((double?)null,10))
+                }
+            };
+
+            //randomizing expert coefs
+            this.RandomizeExpertCoefs2();
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -210,7 +285,7 @@ namespace _7analiz
 
             ExpertMarks.Add(new RowWithExpertMarks()
             {
-                ExpertCoefficients = new ObservableCollection<double>(ExpertCoefs[0].ExpertCoefficients.ToList()),
+                ExpertCoefficients = new ObservableCollection<double?>(ExpertCoefs[0].ExpertCoefficients.ToList()),
                 max = 100,
                 min = 1,
                 IsHeader = true,
@@ -231,7 +306,7 @@ namespace _7analiz
 
             ExpertMarks.Add(new RowWithExpertMarks()
             {
-                ExpertCoefficients = new ObservableCollection<double>(ExpertCoefs[1].ExpertCoefficients.ToList()),
+                ExpertCoefficients = new ObservableCollection<double?>(ExpertCoefs[1].ExpertCoefficients.ToList()),
                 max = 100,
                 min = 1,
                 IsHeader = true,
@@ -252,7 +327,7 @@ namespace _7analiz
 
             ExpertMarks.Add(new RowWithExpertMarks()
             {
-                ExpertCoefficients = new ObservableCollection<double>(ExpertCoefs[2].ExpertCoefficients.ToList()),
+                ExpertCoefficients = new ObservableCollection<double?>(ExpertCoefs[2].ExpertCoefficients.ToList()),
                 max = 100,
                 min = 1,
                 IsHeader = true,
@@ -273,7 +348,7 @@ namespace _7analiz
 
             ExpertMarks.Add(new RowWithExpertMarks()
             {
-                ExpertCoefficients = new ObservableCollection<double>(ExpertCoefs[3].ExpertCoefficients.ToList()),
+                ExpertCoefficients = new ObservableCollection<double?>(ExpertCoefs[3].ExpertCoefficients.ToList()),
                 max = 100,
                 min = 1,
                 IsHeader = true,
@@ -292,8 +367,109 @@ namespace _7analiz
                 Number = x.Number,
             })));
 
+            ExpertMarks.Add(new RowWithExpertMarks()
+            {
+                ExpertCoefficients = new ObservableCollection<double?>(Enumerable.Repeat((double?)null, 100)),
+                max = 100,
+                min = 1,
+                IsHeader = true,
+                Name = "",
+                Number = "Σ",
+                Value = 0,
+            });
+
             //randomizing expert marks
             RandomizeExpertMarks();
+        }
+
+        //initializing table with expert marks #1
+        void InitializeExpertMarksTable2()
+        {
+            //creating rows
+            ExpertMarks2 = new ObservableCollection<RowWithExpertMarks>();
+
+            ExpertMarks2.Add(new RowWithExpertMarks()
+            {
+                max = 100,
+                min = 1,
+                IsHeader = true,
+                Name = ExpertCoefs2[0].Name,
+                Number = "1",
+                Value = ExpertCoefs2[0].Value,
+                GroupName = ""
+            });
+
+            ExpertMarks2 = new ObservableCollection<RowWithExpertMarks>(ExpertMarks2.Union(SecondTableRows.Where(x => x.GroupName == ExpertMarks2[0].Name).Select(x => new RowWithExpertMarks()
+            {
+                GroupName = x.GroupName,
+                Name = x.Name,
+                Value = x.Value,
+                IsHeader = false,
+                Number = x.Number,
+            })));
+
+            ExpertMarks2.Add(new RowWithExpertMarks()
+            {
+                max = 100,
+                min = 1,
+                IsHeader = true,
+                Name = ExpertCoefs2[1].Name,
+                Number = "2",
+                Value = ExpertCoefs2[1].Value,
+                GroupName = ""
+            });
+
+            ExpertMarks2 = new ObservableCollection<RowWithExpertMarks>(ExpertMarks2.Union(SecondTableRows.Where(x => x.GroupName == ExpertMarks2.Last().Name).Select(x => new RowWithExpertMarks()
+            {
+                GroupName = x.GroupName,
+                Name = x.Name,
+                Value = x.Value,
+                IsHeader = false,
+                Number = x.Number,
+            })));
+
+            ExpertMarks2.Add(new RowWithExpertMarks()
+            {
+                max = 100,
+                min = 1,
+                IsHeader = true,
+                Name = ExpertCoefs2[2].Name,
+                Number = "3",
+                Value = ExpertCoefs2[2].Value,
+                GroupName = ""
+            });
+
+            ExpertMarks2 = new ObservableCollection<RowWithExpertMarks>(ExpertMarks2.Union(SecondTableRows.Where(x => x.GroupName == ExpertMarks2.Last().Name).Select(x => new RowWithExpertMarks()
+            {
+                GroupName = x.GroupName,
+                Name = x.Name,
+                Value = x.Value,
+                IsHeader = false,
+                Number = x.Number,
+            })));
+
+            ExpertMarks2.Add(new RowWithExpertMarks()
+            {
+                max = 100,
+                min = 1,
+                IsHeader = true,
+                Name = ExpertCoefs2[3].Name,
+                Number = "4",
+                Value = ExpertCoefs2[3].Value,
+                GroupName = ""
+            });
+
+            ExpertMarks2 = new ObservableCollection<RowWithExpertMarks>(ExpertMarks2.Union(SecondTableRows.Where(x => x.GroupName == ExpertMarks2.Last().Name).Select(x => new RowWithExpertMarks()
+            {
+                GroupName = x.GroupName,
+                Name = x.Name,
+                Value = x.Value,
+                IsHeader = false,
+                Number = x.Number,
+            })));
+
+            //randomizing expert marks
+            RandomizeExpertMarks2();
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -327,6 +503,14 @@ namespace _7analiz
             };
         }
 
+        public void InitializeStrangeTable()
+        {
+            this.StrangeTable = new ObservableCollection<RowWithExpertMarks>(){
+                new RowWithExpertMarks(),
+                new RowWithExpertMarks() };
+            this.CalculateStrangeTable();
+        }
+
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //RANDOMIZATION VALUES
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -342,13 +526,27 @@ namespace _7analiz
         //randomizing expert coefs
         void RandomizeExpertCoefs()
         {
-            foreach (var row in ExpertCoefs)
+            foreach (var row in ExpertCoefs.Take(4))
             {
                 for (var i = 0; i < row.ExpertCoefficients.Count; i++)
                 {
                     row.ExpertCoefficients[i] = rand.Next(1, 11);
                 }
             }
+            ExpertCoefs.Last().Value = ExpertCoefs.Take(4).Sum(x => x.Value);
+        }
+
+        //randomizing expert coefs
+        void RandomizeExpertCoefs2()
+        {
+            foreach (var row in ExpertCoefs2.Take(4))
+            {
+                for (var i = 0; i < row.ExpertCoefficients.Count; i++)
+                {
+                    row.ExpertCoefficients[i] = rand.Next(1, 11);
+                }
+            }
+            ExpertCoefs2.Last().Value = ExpertCoefs.Take(4).Sum(x => x.Value);
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -366,6 +564,28 @@ namespace _7analiz
 
             //calculating values for expert marks
             CalculateExpertMarksTable();
+        }
+
+        void RandomizeExpertMarks2()
+        {
+            foreach (var row in ExpertMarks2.Where(x => x.IsHeader))
+            {
+                row.ExpertCoefficients[0] = rand.Next(0, 10000);
+            }
+            foreach (var row in ExpertMarks2.Where(x => !x.IsHeader))
+            {
+                for (var i = 0; i < 11; i++)
+                {
+                    row.ExpertCoefficients[i] = rand.NextDouble();
+                    if (i == 0)
+                    {
+                        row.ExpertCoefficients[i] *= ExpertMarks2.FirstOrDefault(x => x.Name == row.GroupName).ExpertCoefficients[0] * 0.15;
+                    }
+                }
+            }
+
+            //calculating values for expert marks
+            CalculateExpertMarksTable2();
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -460,7 +680,7 @@ namespace _7analiz
                                                  .ExpertCoefficients[10];
             }
 
-            foreach (var row in ExpertMarks.Where(x=>x.IsHeader))
+            foreach (var row in ExpertMarks.Where(x => x.IsHeader))
             {
                 for (int i = 11; i < 21; i++)
                 {
@@ -495,7 +715,96 @@ namespace _7analiz
                     row.Level = "Дуже високою";
                 }
             }
+            ExpertMarks.Last().Value = ExpertMarks.Where(x => !x.IsHeader).Sum(x => x.Value);
+            ExpertMarks.Last().Level = "";
+            ExpertMarks.Last().Name = "Сума";
 
+        }
+
+        void CalculateExpertMarksTable2()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                var row = ExpertMarks2.Where(x => x.IsHeader).ElementAt(i);
+                for (int j = 0; j < 10; j++)
+                    row.ExpertCoefficients[j + 1] =
+                         ExpertCoefs2[i].ExpertCoefficients[j];
+                row.ExpertCoefficients[11] = row.ExpertCoefficients.Skip(1).Take(10).Sum();
+            }
+            foreach (var row in ExpertMarks2.Where(x => !x.IsHeader))
+            {
+                row.ExpertCoefficients[11] = row.ExpertCoefficients.Skip(1).Take(10).Average() * row.ExpertCoefficients[0];
+                for (int i = 12; i < 22; i++)
+                {
+                    row.ExpertCoefficients[i] = row.ExpertCoefficients[i - 11] *
+                                                ExpertMarks2.First((x => x.Name == row.GroupName))
+                                                    .ExpertCoefficients[i - 11];
+                }
+            }
+
+            foreach (var row in ExpertMarks2.Where(x => x.IsHeader))
+            {
+                for (int i = 12; i < 22; i++)
+                {
+                    row.ExpertCoefficients[i] =
+                        ExpertMarks2.Where(x => x.GroupName == row.Name).Average(x => x.ExpertCoefficients[i]) /
+                        row.ExpertCoefficients[i - 11];
+                }
+            }
+            foreach (var row in ExpertMarks2.Where(x => !x.IsHeader))
+            {
+                row.ExpertCoefficients[22] = row.ExpertCoefficients.Skip(12).Take(10).Sum() / ExpertMarks2.FirstOrDefault(x => x.Name == row.GroupName).ExpertCoefficients[11] * row.ExpertCoefficients[0];
+                row.ExpertCoefficients[23] = row.ExpertCoefficients[0] + row.ExpertCoefficients[22];
+            }
+
+            foreach (var row in ExpertMarks2.Where(x => x.IsHeader))
+            {
+                row.ExpertCoefficients[22] = ExpertMarks2.Where(x => x.GroupName == row.Name).Sum(x => x.ExpertCoefficients[22]);
+                row.ExpertCoefficients[23] = row.ExpertCoefficients[0] + row.ExpertCoefficients[22];
+            }
+
+            var min = ExpertMarks2.Where(x => !x.IsHeader).Min(x => x.ExpertCoefficients[22]);
+            var max = ExpertMarks2.Where(x => !x.IsHeader).Max(x => x.ExpertCoefficients[22]);
+            var step = max - min;
+            step /= 3;
+            foreach(var row in ExpertMarks2.Where(x => !x.IsHeader))
+            {
+                row.Level = row.ExpertCoefficients[22] <= min + step ? "Низький" :
+                    row.ExpertCoefficients[22] <= min + step * 2 ? "Середній" :
+                    "Високий";
+            }
+
+        }
+
+        void CalculateStrangeTable()
+        {
+            StrangeTable[0] =
+                new RowWithExpertMarks
+                {
+                    Name = "Початкова вартість реалізації проекту",
+                    max=100000000000000,
+                    ExpertCoefficients = new ObservableCollection<double?>
+                    {
+                        ExpertMarks2.Where(x=>x.IsHeader).ElementAt(0).ExpertCoefficients[0],
+                        ExpertMarks2.Where(x=>x.IsHeader).ElementAt(1).ExpertCoefficients[0],
+                        ExpertMarks2.Where(x=>x.IsHeader).ElementAt(2).ExpertCoefficients[0],
+                        ExpertMarks2.Where(x=>x.IsHeader).ElementAt(3).ExpertCoefficients[0]
+                    }
+                };
+            StrangeTable[0].Value = StrangeTable[0].ExpertCoefficients.Sum().GetValueOrDefault();
+            StrangeTable[1] = new RowWithExpertMarks
+            {
+                Name = "Кінцева вартість реалізації проекту",
+                    max=100000000000000,
+                ExpertCoefficients = new ObservableCollection<double?>
+                    {
+                        ExpertMarks2.Where(x=>x.IsHeader).ElementAt(0).ExpertCoefficients[23],
+                        ExpertMarks2.Where(x=>x.IsHeader).ElementAt(1).ExpertCoefficients[23],
+                        ExpertMarks2.Where(x=>x.IsHeader).ElementAt(2).ExpertCoefficients[23],
+                        ExpertMarks2.Where(x=>x.IsHeader).ElementAt(3).ExpertCoefficients[23],
+                    }
+            };
+            StrangeTable[1].Value = StrangeTable[1].ExpertCoefficients.Sum().Value;
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -509,13 +818,20 @@ namespace _7analiz
             GenerateFirstTableRows();
             GenerateSecondTableRows();
             RandomizeExpertCoefs();
+            RandomizeExpertCoefs2();
             RandomizeExpertMarks();
+            RandomizeExpertMarks2();
+            CalculateStrangeTable();
+
 
             //indicating that tables were changed
             OnPropertyChanged(nameof(FirstTableRows));
             OnPropertyChanged(nameof(SecondTableRows));
             OnPropertyChanged(nameof(ExpertCoefs));
+            OnPropertyChanged(nameof(ExpertCoefs2));
             OnPropertyChanged(nameof(ExpertMarks));
+            OnPropertyChanged(nameof(ExpertMarks2));
+            OnPropertyChanged(nameof(StrangeTable));
             OnPropertyChanged(nameof(RowWithExpertMarks.ExpertCoefficients));
         }
 
@@ -585,6 +901,31 @@ namespace _7analiz
         private void FrameworkElement_OnSourceUpdated(object sender, DataTransferEventArgs e)
         {
             this.CalculateExpertMarksTable();
+
+        }
+
+        private void DataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void DataGrid_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+
+        }
+
+        private void DataGrid_SourceUpdated_1(object sender, DataTransferEventArgs e)
+        {
+            this.CalculateExpertMarksTable2();
+            this.CalculateStrangeTable();
+            OnPropertyChanged(nameof(FirstTableRows));
+            OnPropertyChanged(nameof(SecondTableRows));
+            OnPropertyChanged(nameof(ExpertCoefs));
+            OnPropertyChanged(nameof(ExpertCoefs2));
+            OnPropertyChanged(nameof(ExpertMarks));
+            OnPropertyChanged(nameof(ExpertMarks2));
+            OnPropertyChanged(nameof(RowWithExpertMarks.ExpertCoefficients));
+            OnPropertyChanged(nameof(StrangeTable));
         }
     }
 }

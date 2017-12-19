@@ -13,7 +13,7 @@ namespace _7analiz
         private string level;
 
         //collection of expert coeficients
-        public ObservableCollection<double> ExpertCoefficients { get; set; }
+        public ObservableCollection<double?> ExpertCoefficients { get; set; }
 
         //level of row (property)
         public string Level
@@ -28,8 +28,8 @@ namespace _7analiz
 
         public RowWithExpertMarks()
         {
-            ExpertCoefficients = new ObservableCollection<double>();
-            for (int i = 0; i < 22; i++)
+            ExpertCoefficients = new ObservableCollection<double?>();
+            for (int i = 0; i < 25; i++)
             {
                 ExpertCoefficients.Add(0);
             }
