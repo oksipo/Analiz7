@@ -201,7 +201,7 @@
                             <DataGrid.RowStyle>
                                 <Style TargetType="DataGridRow">
                                     <Setter Property="Background" 
-                                            Value="{Binding Level, Converter={StaticResource local:MyColorConverter}}"/>
+                                            Value="{Binding Level, ConverterParameter=Level, Converter={ StaticResource local:MyColorConverter}}"/>
                                 </Style>
                             </DataGrid.RowStyle>
 
