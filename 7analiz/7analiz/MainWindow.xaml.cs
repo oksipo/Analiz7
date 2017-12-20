@@ -693,7 +693,7 @@ namespace _7analiz
 
             foreach (var row in ExpertMarks)
             {
-                var last = row.ExpertCoefficients.Last();
+                var last = row.ExpertCoefficients[21];
                 if (last < 0.1)
                 {
                     row.Level = "Дуже низькою";
