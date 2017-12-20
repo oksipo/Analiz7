@@ -165,6 +165,7 @@
                         <Label  Content="Коефіцієнти вагомості кожного з експертів  для ймовірності настання ризикових подій" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="31"/>
 
                         <DataGrid SourceUpdated="FrameworkElement_OnSourceUpdated" AutoGenerateColumns="False" ItemsSource="{Binding ExpertCoefs}" Margin="0,50,0,114"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" >
+
                             <DataGrid.Columns>
                                 <DataGridTextColumn   Width="50" Header="#"                 Binding= "{Binding Number, Mode=TwoWay}"  IsReadOnly="True"/>
                                 <DataGridTextColumn   Width="800" Header="Множина ризиків"   Binding= "{Binding Name, Mode=TwoWay}"  IsReadOnly="True"/>
@@ -195,15 +196,11 @@
                                             <Setter Property="FontSize" Value="14" />
                                         </DataTrigger>
                                     </Style.Triggers>
-                                </Style>
-                            </DataGrid.Resources>
-
-                            <DataGrid.RowStyle>
-                                <Style TargetType="DataGridRow">
                                     <Setter Property="Background" 
                                             Value="{Binding Level, ConverterParameter=Level, Converter={ StaticResource local:MyColorConverter}}"/>
                                 </Style>
-                            </DataGrid.RowStyle>
+
+                            </DataGrid.Resources>
 
                             <DataGrid.Columns>
                                 <DataGridTextColumn   Width="50" Header="#"                          Binding= "{Binding Number,                 Mode=TwoWay}"  IsReadOnly="True"/>

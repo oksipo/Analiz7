@@ -900,6 +900,11 @@ namespace _7analiz
         //after updating framewoork element
         private void FrameworkElement_OnSourceUpdated(object sender, DataTransferEventArgs e)
         {
+            foreach (var row in ExpertCoefs)
+            {
+                for(int i=0;i<row.ExpertCoefficients.Count;i++)
+                    if (row.ExpertCoefficients[i] > 10) row.ExpertCoefficients[i] = 10;
+            }
             this.CalculateExpertMarksTable();
 
         }
@@ -916,6 +921,12 @@ namespace _7analiz
 
         private void DataGrid_SourceUpdated_1(object sender, DataTransferEventArgs e)
         {
+            foreach (var row in ExpertCoefs2)
+            {
+                for (int i = 0; i < row.ExpertCoefficients.Count; i++)
+                    if (row.ExpertCoefficients[i] > 10) row.ExpertCoefficients[i] = 10;
+            }
+
             this.CalculateExpertMarksTable2();
             this.CalculateStrangeTable();
             OnPropertyChanged(nameof(FirstTableRows));
