@@ -180,9 +180,9 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <Label  Content="2.1. Визначення ймовірності настання ризикових подій" HorizontalAlignment="Left" Margin="0,186,0,0" VerticalAlignment="Top" Height="32"/>
+                        <Label  Content="2.1. Визначення ймовірності настання ризикових подій" HorizontalAlignment="Left" Margin="0,192,0,0" VerticalAlignment="Top" Height="32"/>
 
-                        <DataGrid SourceUpdated="FrameworkElement_OnSourceUpdated" AutoGenerateColumns="False" ItemsSource="{Binding ExpertMarks}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,229,0,0" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"  ScrollViewer.HorizontalScrollBarVisibility="Visible" SelectionChanged="DataGrid_SelectionChanged" Height="300">
+                        <DataGrid SourceUpdated="FrameworkElement_OnSourceUpdated" AutoGenerateColumns="False" ItemsSource="{Binding ExpertMarks}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,229,0,0" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"  ScrollViewer.HorizontalScrollBarVisibility="Visible" SelectionChanged="DataGrid_SelectionChanged" Height="480">
 
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridRow}">
@@ -234,10 +234,10 @@
 
                 <TabItem Header="Частки можливих збитків від прояву та величини збитків від прояву ризиків" Margin="-2,0,6,-1.8">
                     <Grid>
-                        <DataGrid SourceUpdated="DataGrid_SourceUpdated_1" AutoGenerateColumns="False" ItemsSource="{Binding ExpertCoefs2}" Margin="-10,10,10,154"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" >
+                        <DataGrid SourceUpdated="DataGrid_SourceUpdated_1" AutoGenerateColumns="False" ItemsSource="{Binding ExpertCoefs2}" Margin="0,46,0.2,366.2"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn   Width="50" Header="#"                 Binding= "{Binding Number, Mode=TwoWay}"  IsReadOnly="True"/>
-                                <DataGridTextColumn   Width="800" Header="Множина ризиків"   Binding= "{Binding Name, Mode=TwoWay}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="750" Header="Множина ризиків"   Binding= "{Binding Name, Mode=TwoWay}"  IsReadOnly="True"/>
                                 <DataGridTextColumn   Width="190" Header="Кількість ризиків" Binding= "{Binding Value, Mode=TwoWay}"  IsReadOnly="True"/>
                                 <DataGridTextColumn   Width="50" Header="1"                 Binding= "{Binding ExpertCoefficients[0], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
                                 <DataGridTextColumn   Width="50" Header="2"                 Binding= "{Binding ExpertCoefficients[1], Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus}" />
@@ -252,7 +252,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding StrangeTable}" Margin="-10,120,10,45"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" >
+                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding StrangeTable}" Margin="0,222,0.2,24.8"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True"></DataGridTextColumn>
                                 <DataGridTextColumn Binding="{Binding Value, StringFormat=0.00}" IsReadOnly="True"></DataGridTextColumn>
@@ -264,7 +264,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <DataGrid SourceUpdated="DataGrid_SourceUpdated_1" AutoGenerateColumns="False" ItemsSource="{Binding ExpertMarks2}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,229,0,0" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"  ScrollViewer.HorizontalScrollBarVisibility="Visible" SelectionChanged="DataGrid_SelectionChanged" Height="300">
+                        <DataGrid SourceUpdated="DataGrid_SourceUpdated_1" AutoGenerateColumns="False" ItemsSource="{Binding ExpertMarks2}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,334,0.2,-12.8" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"  ScrollViewer.HorizontalScrollBarVisibility="Visible" SelectionChanged="DataGrid_SelectionChanged" Height="150">
 
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridRow}">
@@ -309,6 +309,10 @@
                                 <DataGridTextColumn   Width="200" Header="Рівень пріоритету ризику::"  Binding= "{Binding Level, Mode=TwoWay}"  IsReadOnly="True"/>
                             </DataGrid.Columns>
                         </DataGrid>
+                        <Label  Content="Коефіцієнти вагомості кожного з експертів для можливих збитків від ризику" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31" Margin="0,10,0,0"/>
+                        <Label  Content="Розподіл вартості реалізації проекту за множинами ризиків" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31" Margin="0,186,0,0"/>
+                        <Label  Content="2.2. Визначення частки можливих збитків від прояву ризику" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31" Margin="0,298,0,0"/>
+                        <Label  Content="2.3. Визначення величини збитків від прояву ризику (математичне сподівання збитку)" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31" Margin="0,334,0,0"/>
                     </Grid>
                 </TabItem>
 

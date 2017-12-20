@@ -15,6 +15,8 @@ namespace _7analiz
         //collection of expert coeficients
         public ObservableCollection<double?> ExpertCoefficients { get; set; }
 
+        //-------------------------------------------------------------------------------------------------------------------
+
         //level of row (property)
         public string Level
         {
@@ -25,6 +27,8 @@ namespace _7analiz
                 OnPropertyChanged(nameof(Level));
             }
         }
+
+        //-------------------------------------------------------------------------------------------------------------------
 
         public RowWithExpertMarks()
         {
