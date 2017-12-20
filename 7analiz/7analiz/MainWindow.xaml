@@ -9,7 +9,7 @@
 
     <Window.Resources>
 
-        <ColorConverter x:Key="my:ColorConverter"/>
+        <local:MyColorConverter x:Key="local:MyColorConverter"/>
 
         <Style TargetType="MenuItem">
 
@@ -201,7 +201,7 @@
                             <DataGrid.RowStyle>
                                 <Style TargetType="DataGridRow">
                                     <Setter Property="Background" 
-                                            Value="{Binding Level, Converter={StaticResource local:ColorConverter}}"/>
+                                            Value="{Binding Level, Converter={StaticResource local:MyColorConverter}}"/>
                                 </Style>
                             </DataGrid.RowStyle>
 

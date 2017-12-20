@@ -54,7 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ColorConverter.cs" />
+    <Compile Include="MyColorConverter.cs" />
     <Compile Include="Row.cs" />
     <Compile Include="RowWithExpertMarks.cs" />
     <Compile Include="RowWithTotal.cs" />

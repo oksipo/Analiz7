@@ -9,11 +9,11 @@ using System.Windows.Media;
 
 namespace _7analiz
 {
-    public class ColorConverter : IValueConverter
+    public class MyColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Color.FromArgb(255, 100, 100, 0);
+            return new SolidColorBrush(Color.FromArgb(255, 100, 100, 0));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
