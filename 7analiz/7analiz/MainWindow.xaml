@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_7analiz"
         mc:Ignorable="d"
-        Title="Аналіз ризиків та витрат на розробку програмного забезпечення" WindowState="Maximized" Width="1539.23">
+        Title="Аналіз ризиків та витрат на розробку програмного забезпечення" WindowState="Maximized" Width="1539.23" Height="700.8">
 
     <Window.Resources>
 
@@ -233,8 +233,12 @@
                 </TabItem>
 
                 <TabItem Header="Частки можливих збитків від прояву та величини збитків від прояву ризиків" Margin="-2,0,6,-1.8">
-                    <Grid>
-                        <DataGrid SourceUpdated="DataGrid_SourceUpdated_1" AutoGenerateColumns="False" ItemsSource="{Binding ExpertCoefs2}" Margin="0,46,0.2,366.2"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" >
+                    <Grid Height="705" Margin="0,0,0.2,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="299*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <DataGrid SourceUpdated="DataGrid_SourceUpdated_1" AutoGenerateColumns="False" ItemsSource="{Binding ExpertCoefs2}" Margin="0,46,0.2,362.2"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn   Width="50" Header="#"                 Binding= "{Binding Number, Mode=TwoWay}"  IsReadOnly="True"/>
                                 <DataGridTextColumn   Width="750" Header="Множина ризиків"   Binding= "{Binding Name, Mode=TwoWay}"  IsReadOnly="True"/>
@@ -252,7 +256,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding StrangeTable}" Margin="0,222,0.2,24.8"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" >
+                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding StrangeTable}" Margin="0,222,0,5.4"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True"></DataGridTextColumn>
                                 <DataGridTextColumn Binding="{Binding Value, StringFormat=0.00}" IsReadOnly="True"></DataGridTextColumn>
@@ -264,7 +268,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <DataGrid SourceUpdated="DataGrid_SourceUpdated_1" AutoGenerateColumns="False" ItemsSource="{Binding ExpertMarks2}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,334,0.2,-12.8" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"  ScrollViewer.HorizontalScrollBarVisibility="Visible" SelectionChanged="DataGrid_SelectionChanged" Height="150">
+                        <DataGrid Height="320" SourceUpdated="DataGrid_SourceUpdated_1" AutoGenerateColumns="False" ItemsSource="{Binding ExpertMarks2}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,335,0.2,-32.6" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"  ScrollViewer.HorizontalScrollBarVisibility="Visible" SelectionChanged="DataGrid_SelectionChanged" Grid.RowSpan="2">
 
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridRow}">
@@ -304,9 +308,9 @@
                                 <DataGridTextColumn   Width="50" Header="8"                          Binding= "{Binding ExpertCoefficients[19], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
                                 <DataGridTextColumn   Width="50" Header="9"                          Binding= "{Binding ExpertCoefficients[20], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
                                 <DataGridTextColumn   Width="50" Header="10"                         Binding= "{Binding ExpertCoefficients[21], Mode=TwoWay, StringFormat=0.00}" IsReadOnly="True"/>
-                                <DataGridTextColumn   Width="100" Header="Додаткова вартість, тис. грн." Binding= "{Binding ExpertCoefficients[22], Mode=TwoWay, StringFormat=0.00}"  IsReadOnly="True"/>
-                                <DataGridTextColumn   Width="100" Header="Кінцева вартість, тис. грн." Binding= "{Binding ExpertCoefficients[23], Mode=TwoWay, StringFormat=0.00}"  IsReadOnly="True"/>
-                                <DataGridTextColumn   Width="200" Header="Рівень пріоритету ризику::"  Binding= "{Binding Level, Mode=TwoWay}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="200" Header="Додаткова вартість, тис. грн." Binding= "{Binding ExpertCoefficients[22], Mode=TwoWay, StringFormat=0.00}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="150" Header="Кінцева вартість, тис. грн." Binding= "{Binding ExpertCoefficients[23], Mode=TwoWay, StringFormat=0.00}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="200" Header="Рівень пріоритету ризику:"  Binding= "{Binding Level, Mode=TwoWay}"  IsReadOnly="True"/>
                             </DataGrid.Columns>
                         </DataGrid>
                         <Label  Content="Коефіцієнти вагомості кожного з експертів для можливих збитків від ризику" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31" Margin="0,10,0,0"/>
@@ -319,10 +323,14 @@
                 <TabItem Header="Заходи із зменшення або усунення" Margin="-6,0,-57.4,-1.8">
 
                     <Grid Background="Transparent" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="405*"/>
+                            <RowDefinition Height="346*"/>
+                        </Grid.RowDefinitions>
 
                         <DataGrid x:Name="SolutionsTable" HorizontalAlignment="Stretch" VerticalAlignment="top"
                               ItemsSource = "{Binding SolutionsTableRows}" AutoGenerateColumns="False"
-                              CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,50,0,0.4" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="700">
+                              CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,50,0.2,0" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="700" Grid.RowSpan="2">
 
                             <DataGrid.Columns>
 
@@ -342,6 +350,29 @@
 
                         </DataGrid>
                         <Label  Content="3.1. Заходи із зменшення або усунення ризику" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31" Margin="0,10,0,0"/>
+
+                        <DataGrid Height="200" SourceUpdated="DataGrid_SourceUpdated_1" AutoGenerateColumns="False" ItemsSource="{Binding ExpertMarks2}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" Margin="0,409.4,0.2,24.2" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"  ScrollViewer.HorizontalScrollBarVisibility="Visible" SelectionChanged="DataGrid_SelectionChanged" Grid.Row="1">
+
+                            <DataGrid.Resources>
+                                <Style TargetType="{x:Type DataGridRow}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsHeader}" Value="True">
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                            <Setter Property="FontSize" Value="14" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.Resources>
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn   Width="50" Header="#"                          Binding= "{Binding Number,                 Mode=TwoWay}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="850" Header="Тип ризику"                 Binding= "{Binding Name,                   Mode=TwoWay}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="200" Header="Імовірність появи ризику"   Binding= "{Binding Value,                  Mode=TwoWay,  StringFormat=0.00}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="200" Header="Додаткова вартість, тис. грн." Binding= "{Binding ExpertCoefficients[22], Mode=TwoWay, StringFormat=0.00}"  IsReadOnly="True"/>
+                                <DataGridTextColumn   Width="200" Header="Рівень пріоритету ризику:"  Binding= "{Binding Level, Mode=TwoWay}"  IsReadOnly="True"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
 
                     </Grid>
 
